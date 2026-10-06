@@ -8,16 +8,16 @@ data class Muestra(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    val centroId: Long,
-    val trenId: Long,
-    val lineaId: Long,
+    val centro: String,
+    val tren: String,
+    val linea: String,
 
     val fecha: String,
     val hora: String,
     val tramoMetros: Double,
-    val operadorId: Long,
+    val operador: String,
 
-    val fotoPath: String,
+    val fotoPath: String? = null,
 
     val cantidadEstimadaML: Int? = null,
     val cantidadConfirmada: Int? = null,
