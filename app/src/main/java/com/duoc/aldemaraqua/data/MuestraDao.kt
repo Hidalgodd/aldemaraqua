@@ -15,8 +15,11 @@ interface MuestraDao {
     suspend fun obtenerPorId(id: Long): Muestra?
 
     @Insert
-    suspend fun insertar(muestra: Muestra)
+    suspend fun insertar(muestra: Muestra): Long
 
     @Update
     suspend fun actualizar(muestra: Muestra)
+
+    @Query("SELECT * FROM muestras WHERE estadoRevision = 'validado' AND sincronizada = 0")
+    suspend fun obtenerValidadasPendientesDeSincronizar(): List<Muestra>
 }

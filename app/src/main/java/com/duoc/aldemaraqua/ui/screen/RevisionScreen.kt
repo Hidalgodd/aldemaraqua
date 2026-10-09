@@ -30,6 +30,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.duoc.aldemaraqua.data.EstadoMuestra
+import com.duoc.aldemaraqua.data.UsuarioDemo
 import com.duoc.aldemaraqua.viewmodel.RevisionViewModel
 import java.io.File
 
@@ -37,6 +39,7 @@ import java.io.File
 @Composable
 fun RevisionScreen(
     muestraId: Long,
+    usuario: UsuarioDemo,
     viewModel: RevisionViewModel,
     onVolver: () -> Unit,
     onGuardado: () -> Unit
@@ -44,15 +47,16 @@ fun RevisionScreen(
     val muestra by viewModel.muestra.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
     var estadoSeleccionado by remember(muestra?.id) {
-        mutableStateOf(muestra?.estadoRevision?.takeIf {
-            it in listOf("observado", "corregido", "validado")
-        } ?: "validado")
+        mutableStateOf(EstadoMuestra.VALIDADO.name.lowercase())
     }
     var comentario by remember(muestra?.id) {
         mutableStateOf(muestra?.comentarioSupervisor.orEmpty())
     }
     var mensajeError by remember { mutableStateOf("") }
-    val estados = listOf("observado", "corregido", "validado")
+    val estados = listOf(
+        EstadoMuestra.OBSERVADO.name.lowercase(),
+        EstadoMuestra.VALIDADO.name.lowercase()
+    )
 
     LaunchedEffect(muestraId) {
         viewModel.cargar(muestraId)
@@ -88,6 +92,9 @@ fun RevisionScreen(
                         )
                     }
                     Text("${muestraActual.centro} · ${muestraActual.tren} · ${muestraActual.linea}", style = MaterialTheme.typography.titleLarge)
+                    muestraActual.concesion?.takeIf { it.isNotBlank() }?.let {
+                        Text("Concesión: $it")
+                    }
                     Text("Fecha: ${muestraActual.fecha} a las ${muestraActual.hora}")
                     Text("Tramo: ${muestraActual.tramoMetros} m")
                     Text("Operador: ${muestraActual.operador}")
@@ -114,6 +121,11 @@ fun RevisionScreen(
                         value = comentario,
                         onValueChange = { comentario = it },
                         label = { Text("Comentario del supervisor") },
+                        supportingText = {
+                            if (estadoSeleccionado == EstadoMuestra.OBSERVADO.name.lowercase()) {
+                                Text("Obligatorio: explica qué debe corregirse (mínimo 5 caracteres).")
+                            }
+                        },
                         minLines = 3,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -123,6 +135,7 @@ fun RevisionScreen(
                     Button(
                         onClick = {
                             viewModel.guardarRevision(
+                                usuario = usuario,
                                 estado = estadoSeleccionado,
                                 comentario = comentario,
                                 alGuardar = onGuardado,

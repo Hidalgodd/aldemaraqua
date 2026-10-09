@@ -1,6 +1,7 @@
 package com.duoc.aldemaraqua.data
 
 import androidx.room.Entity
+import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "muestras")
@@ -31,6 +32,10 @@ data class Muestra(
 
     val estadoRevision: String = "pendiente",
     val revisadaPorId: Long? = null,
+    val revisadaPor: String? = null,
     val fechaRevision: String? = null,
-    val comentarioSupervisor: String = ""
+    val comentarioSupervisor: String = "",
+    @ColumnInfo(defaultValue = "0")
+    val sincronizada: Boolean = false,
+    val concesion: String? = null
 )

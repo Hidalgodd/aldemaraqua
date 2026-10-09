@@ -74,4 +74,7 @@ dependencies {
     implementation("androidx.camera:camera-view:1.4.1")
 
     implementation("io.coil-kt:coil-compose:2.7.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 }

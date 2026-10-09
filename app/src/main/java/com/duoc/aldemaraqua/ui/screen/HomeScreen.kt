@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.duoc.aldemaraqua.data.Rol
+import com.duoc.aldemaraqua.data.UsuarioDemo
 
 private val AzulPrincipal = Color(0xFF0B5C8E)
 private val Turquesa = Color(0xFF1FA39A)
@@ -30,9 +32,10 @@ private val Texto = Color(0xFF1B2A38)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-	rolUsuario: String,
+	usuario: UsuarioDemo,
 	onNuevaMuestra: () -> Unit,
 	onVerHistorial: () -> Unit,
+	onVerResumen: () -> Unit,
 	onCerrarSesion: () -> Unit
 ) {
 	Scaffold(
@@ -54,7 +57,11 @@ fun HomeScreen(
 		) {
 			Text("ALDEMAR AQUA", color = Turquesa, style = MaterialTheme.typography.labelLarge)
 			Spacer(modifier = Modifier.height(8.dp))
-			Text("Sesión: $rolUsuario", color = Texto, style = MaterialTheme.typography.bodyMedium)
+			Text(
+				"Sesión: ${usuario.nombre} · ${usuario.rol.etiqueta}",
+				color = Texto,
+				style = MaterialTheme.typography.bodyMedium
+			)
 			Spacer(modifier = Modifier.height(8.dp))
 			Text(
 				"Registro de muestras",
@@ -62,7 +69,7 @@ fun HomeScreen(
 				style = MaterialTheme.typography.headlineSmall
 			)
 			Spacer(modifier = Modifier.height(32.dp))
-			if (rolUsuario == "operador") {
+			if (usuario.rol == Rol.OPERADOR) {
 				Button(
 					onClick = onNuevaMuestra,
 					modifier = Modifier.fillMaxWidth(),
@@ -77,9 +84,15 @@ fun HomeScreen(
 				modifier = Modifier.fillMaxWidth(),
 				colors = ButtonDefaults.outlinedButtonColors(contentColor = Turquesa)
 			) {
-				Text(if (rolUsuario == "supervisor") "Revisar muestras" else "Ver historial")
+				Text(if (usuario.rol == Rol.SUPERVISOR) "Revisar muestras" else "Ver historial")
 			}
 			Spacer(modifier = Modifier.height(12.dp))
+			if (usuario.rol == Rol.ANALISTA) {
+				OutlinedButton(onClick = onVerResumen, modifier = Modifier.fillMaxWidth()) {
+					Text("Ver resumen")
+				}
+				Spacer(modifier = Modifier.height(12.dp))
+			}
 			OutlinedButton(onClick = onCerrarSesion, modifier = Modifier.fillMaxWidth()) {
 				Text("Cerrar sesión")
 			}

@@ -25,11 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.duoc.aldemaraqua.data.UsuarioDemo
 import com.duoc.aldemaraqua.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(viewModel: LoginViewModel, onIngreso: (String) -> Unit) {
+fun LoginScreen(viewModel: LoginViewModel, onIngreso: (UsuarioDemo) -> Unit) {
 	var usuario by remember { mutableStateOf("") }
 	var clave by remember { mutableStateOf("") }
 	var mensajeError by remember { mutableStateOf("") }
@@ -84,8 +85,7 @@ fun LoginScreen(viewModel: LoginViewModel, onIngreso: (String) -> Unit) {
 				Text("Ingresar")
 			}
 			Spacer(modifier = Modifier.height(12.dp))
-			Text("Prueba: operador / 1234 o supervisor / 1234")
+			Text("Prueba: OP-01, OP-02, SUP-01 o AN-01 / 1234")
 		}
 	}
 }
-
