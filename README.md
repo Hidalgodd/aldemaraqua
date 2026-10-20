@@ -45,3 +45,14 @@ Ejecuta las pruebas unitarias con:
 También se aceptan los alias `operador`, `supervisor` y `analista` para las cuentas correspondientes. Son credenciales ficticias; la aplicación no usa autenticación de servidor.
 
 La sincronización envía únicamente muestras validadas a JSONPlaceholder (`/posts`), un servicio REST de prueba. No se debe usar con información real; el resto de las funciones trabaja sin conexión y guarda los datos en el dispositivo.
+
+## Recorrido sugerido para la demo
+
+En el primer inicio, si la base local está vacía, la aplicación carga cuatro muestras ficticias: un borrador y una pendiente para `OP-01`, una validada y una observada para `OP-02`. La carga se realiza una sola vez y no reemplaza datos existentes.
+
+1. Entra como `OP-01` para mostrar el borrador y la muestra pendiente.
+2. Cierra sesión, entra como `SUP-01` y revisa la pendiente.
+3. Entra como `AN-01` para mostrar el resumen y exportar la muestra validada.
+4. Si quieres demostrar la corrección, entra como `OP-02`, corrige la observada y vuelve a revisarla como supervisor.
+
+Los datos y cuentas son solo para demostración. La base se conserva entre ejecuciones; para repetir la presentación desde cero, borra los datos de la aplicación en el dispositivo o emulador.

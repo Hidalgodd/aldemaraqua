@@ -42,7 +42,7 @@ fun HomeScreen(
 		containerColor = Fondo,
 		topBar = {
 			TopAppBar(
-				title = { Text("AquaSample", color = Color.White) },
+				title = { Text("AldemarAqua", color = Color.White) },
 				colors = TopAppBarDefaults.topAppBarColors(containerColor = AzulPrincipal)
 			)
 		}

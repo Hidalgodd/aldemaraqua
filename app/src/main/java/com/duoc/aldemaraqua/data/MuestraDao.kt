@@ -17,8 +17,14 @@ interface MuestraDao {
     @Insert
     suspend fun insertar(muestra: Muestra): Long
 
+    @Insert
+    suspend fun insertarTodas(muestras: List<Muestra>)
+
     @Update
     suspend fun actualizar(muestra: Muestra)
+
+    @Query("SELECT COUNT(*) FROM muestras")
+    suspend fun contarTodas(): Int
 
     @Query("SELECT * FROM muestras WHERE estadoRevision = 'validado' AND sincronizada = 0")
     suspend fun obtenerValidadasPendientesDeSincronizar(): List<Muestra>

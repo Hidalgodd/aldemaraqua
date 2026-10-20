@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.duoc.aldemaraqua.data.UsuarioDemo
 import com.duoc.aldemaraqua.viewmodel.LoginViewModel
@@ -35,7 +38,7 @@ fun LoginScreen(viewModel: LoginViewModel, onIngreso: (UsuarioDemo) -> Unit) {
 	var clave by remember { mutableStateOf("") }
 	var mensajeError by remember { mutableStateOf("") }
 
-	Scaffold(topBar = { TopAppBar(title = { Text("AquaSample") }) }) { innerPadding ->
+	Scaffold(topBar = { TopAppBar(title = { Text("AldemarAqua") }) }) { innerPadding ->
 		Column(
 			modifier = Modifier
 				.fillMaxSize()
@@ -85,7 +88,34 @@ fun LoginScreen(viewModel: LoginViewModel, onIngreso: (UsuarioDemo) -> Unit) {
 				Text("Ingresar")
 			}
 			Spacer(modifier = Modifier.height(12.dp))
-			Text("Prueba: OP-01, OP-02, SUP-01 o AN-01 / 1234")
+			Text("Accesos rápidos · clave 1234", style = MaterialTheme.typography.labelMedium)
+			Spacer(modifier = Modifier.height(4.dp))
+			Row(
+				modifier = Modifier.fillMaxWidth(),
+				horizontalArrangement = Arrangement.spacedBy(8.dp)
+			) {
+				listOf(
+					"Operador" to "OP-01",
+					"Supervisor" to "SUP-01",
+					"Analista" to "AN-01"
+				).forEach { (perfil, codigo) ->
+					OutlinedButton(
+						onClick = {
+							usuario = codigo
+							clave = "1234"
+							mensajeError = ""
+						},
+						modifier = Modifier.weight(1f)
+					) {
+						Text("$perfil\n$codigo", textAlign = TextAlign.Center)
+					}
+				}
+			}
+			Text(
+				"OP-02 también está disponible para probar la corrección de observaciones.",
+				style = MaterialTheme.typography.bodySmall,
+				modifier = Modifier.padding(top = 6.dp)
+			)
 		}
 	}
 }
