@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Silueta de gota y onda marina dentro del área segura del icono adaptable. -->
+    <path android:fillColor="#0AB6A5" android:pathData="M54,19C50,30 34,47 34,60a20,20 0,0 0,40 0C74,47 58,30 54,19z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M39,61c7,-5 14,-5 21,0c5,3 10,3 15,0v7c-9,4 -17,3 -24,-1c-5,-3 -9,-3 -12,0z" />
+    <path android:fillColor="#DFF8F1" android:pathData="M45,44a3,3 0,1 1,0 6a3,3 0,1 1,0 -6z" />
+</vector>
